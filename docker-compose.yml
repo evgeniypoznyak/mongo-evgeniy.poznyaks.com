@@ -1,0 +1,38 @@
+version: '3.1'
+services:
+  skills_data:
+    image: mongo
+    restart: always
+    ports:
+      - "8001:27017"
+    volumes:
+      - ./data:/data/skills_data
+  users:
+    image: mongo
+    restart: always
+    ports:
+      - "8002:27017"
+    volumes:
+      - ./data:/users
+  gateway_logging:
+    image: mongo
+    restart: always
+    ports:
+      - "8003:27017"
+    volumes:
+      - ./data:/logging
+  skills_logging:
+    image: mongo
+    restart: always
+    ports:
+      - "8004:27017"
+    volumes:
+      - ./data:/skills_logging
+  users_seeds:
+    build:
+      context: $PWD
+      dockerfile: users/Dockerfile
+  skills_seeds:
+    build:
+      context: $PWD
+      dockerfile: skills/Dockerfile
